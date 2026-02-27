@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Puma</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" href="style.css">
+
+<!-- React -->
+<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+<!-- Babel -->
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+
+function Dropdown({ title, items }) {
+  return (
+    <div className="dropdown">
+      <button className="dropbtn">{title}</button>
+      <div className="dropdown-content">
+        {items.map(item => (
+          <a key={item} href="#">{item}</a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [dark, setDark] = React.useState(false);
+  const [readMore, setReadMore] = React.useState(false);
+  const [imgIndex, setImgIndex] = React.useState(0);
+
+  const galleryImages = [
+    "img32.png",
+    "img33.png",
+    "img34.png",
+    "img35.png",
+    "img36.png"
+  ];
+
+  React.useEffect(() => {
+    document.body.className = dark ? "dark" : "";
+  }, [dark]);
+
+  return (
+    <>
+      {/* TOP TEXT */}
+      <h1 className="changing-text">
+        <span>Extra 5% and free shipping on all online payments*</span>
+        <span>Free returns and exchanges.</span>
+        <span>Solve your queries faster than ever!</span>
+      </h1>
+
+      {/* NAVBAR */}
+      <header className="navbar">
+        <img src="img1.png" className="puma-img" />
+        <nav className="menu">
+          <Dropdown title="New" items={["Fast-R3","PUMA x McLAREN","Speedcat"]} />
+          <Dropdown title="Men" items={["Sneakers","Running","Training"]} />
+          <Dropdown title="Women" items={["Sneakers","Running","Training"]} />
+          <Dropdown title="Sports" items={["Running","Yoga","Gym"]} />
+          <Dropdown title="Kids" items={["School","Jackets"]} />
+
+          <button className="theme-toggle" onClick={() => setDark(!dark)}>
+            {dark ? "☀️" : "🌙"}
+          </button>
+        </nav>
+      </header>
+
+      {/* CATEGORY CIRCLES */}
+      <h3 align="center">MAKE THEM RIGHTFULLY YOURS</h3>
+
+      <div className="gallery">
+        {["MEN","WOMEN","WINTER WEAR","SNEAKERS","SPORTS SHOES","KIDS"].map(t => (
+          <div className="image-container1" key={t}>
+            <img src="circle.jpeg" />
+            <div className="center-text1">{t}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* FAST R3 */}
+      <section className="image-container2">
+        <img src="img15.jpg" />
+        <div className="center-text2">
+          <div className="line21">TIME OF YOUR LIFE</div>
+          <div className="line22">FAST-R NITRO ELITE 3</div>
+          <div className="button-group">
+            <button className="btn btn-primary">For Him</button>
+            <button className="btn btn-secondary">For Her</button>
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <div className="highlight-section">
+        <h2>ABOUT PUMA?</h2>
+        <p>
+          Puma is a global sportswear brand founded in 1948 in Germany.
+          {!readMore && "..."}
+          {readMore &&
+            " Known for innovation, stylish designs, and collaborations across sports and fashion."
+          }
+        </p>
+        <button className="btn btn-primary" onClick={() => setReadMore(!readMore)}>
+          {readMore ? "Read Less" : "Read More"}
+        </button>
+      </div>
+
+      {/* MCLAREN */}
+      <section className="image-container2">
+        <img src="img17.png" />
+      </section>
+
+      {/* NITRO ROW */}
+      <h1 align="center">UNLEASH YOUR ENERGY</h1>
+      <div className="image-row">
+        <img src="img5.png" />
+        <img src="img6.png" />
+        <img src="img7.png" />
+      </div>
+
+      {/* SPEEDCAT */}
+      <section className="image-container2">
+        <img src="img8.png" />
+        <div className="text-bottom-left">
+          <div className="line21">SPEEDCAT</div>
+          <div className="line22">EFFORTLESSLY LUXE</div>
+        </div>
+      </section>
+
+      {/* IMAGE GALLERY */}
+      <div className="image-gallery">
+        <h2>IMAGE GALLERY</h2>
+        <div className="gallery-main">
+          <img src={galleryImages[imgIndex]} />
+        </div>
+        <div className="gallery-buttons">
+          <button className="btn btn-primary"
+            onClick={() => setImgIndex((imgIndex - 1 + galleryImages.length) % galleryImages.length)}>
+            Prev
+          </button>
+          <button className="btn btn-primary"
+            onClick={() => setImgIndex((imgIndex + 1) % galleryImages.length)}>
+            Next
+          </button>
+        </div>
+      </div>
+
+      {/* SCROLLING IMAGES */}
+      <div className="scroll-container">
+        <div className="scroll-track">
+          {[19,20,21,22,24,25,26,27,28,29,30,31].map(n => (
+            <img key={n} src={`img${n}.jpg`} />
+          ))}
+        </div>
+      </div>
+
+      {/* FOOTER */}
+      <footer className="footer">
+        © 2026 PUMA_clone_by_noella. All Rights Reserved.
+      </footer>
+    </>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
+
+</script>
+</body>
+</html>
